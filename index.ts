@@ -8,14 +8,6 @@ export default {
   ): Promise<Response> {
     const url = new URL(req.url)
     const text = url.searchParams.get('url') || 'https://my.redirx.top'
-    const referer = req.headers.get('Referer') || ''
-
-    const allowedDomains = ['redirx.top', 'clark.today', 'weckmann.me']
-    const isAllowed = allowedDomains.some(domain => referer.includes(domain))
-
-    if (!isAllowed) {
-      return new Response('Forbidden', { status: 403 })
-    }
 
     if (req.method === 'GET') {
       return generateQRCode(text)
